@@ -15,49 +15,62 @@ class _HomeState extends State<Home> {
 
     //set background
     String bgImage = data['isDayTime']
-        ? 'https://c.tadst.com/gfx/1200x630/sunrise.png?1'
-        : 'https://i.pinimg.com/originals/a5/fa/7c/a5fa7c37fe829b362fb82821742d036a.jpg';
+        ? 'https://donecomsite.files.wordpress.com/2019/01/sunny-day-800x450.jpg'
+        : 'https://images.unsplash.com/photo-1507400492013-162706c8c05e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80';
+
+    Color bgColor = data['isDayTime'] ? Colors.blue : Colors.grey[900];
+    Color txtColor = data['isDayTime'] ? Colors.grey[900] : Colors.white;
 
     return Scaffold(
+        backgroundColor: bgColor,
         body: SafeArea(
-      child: Container(
-        decoration: BoxDecoration(
-          image:
-              DecorationImage(image: NetworkImage(bgImage), fit: BoxFit.cover),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(0.0, 120.0, 0.0, 0.0),
-          child: Column(
-            children: <Widget>[
-              FlatButton.icon(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/location');
-                  },
-                  icon: Icon(Icons.edit_location),
-                  label: Text('Edit Location')),
-              SizedBox(
-                height: 20.0,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+          child: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: NetworkImage(bgImage), fit: BoxFit.cover),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0.0, 120.0, 0.0, 0.0),
+              child: Column(
                 children: <Widget>[
+                  FlatButton.icon(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/location');
+                      },
+                      icon: Icon(
+                        Icons.edit_location,
+                        color: txtColor,
+                      ),
+                      label: Text(
+                        'Edit Location',
+                        style: TextStyle(color: txtColor),
+                      )),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        data['location'],
+                        style: TextStyle(
+                            fontSize: 28.0,
+                            letterSpacing: 2.0,
+                            color: txtColor),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20.0,
+                  ),
                   Text(
-                    data['location'],
-                    style: TextStyle(fontSize: 28.0, letterSpacing: 2.0),
+                    data['time'],
+                    style: TextStyle(fontSize: 60.0, color: txtColor),
                   )
                 ],
               ),
-              SizedBox(
-                height: 20.0,
-              ),
-              Text(
-                data['time'],
-                style: TextStyle(fontSize: 60.0),
-              )
-            ],
+            ),
           ),
-        ),
-      ),
-    ));
+        ));
   }
 }
